@@ -38,7 +38,7 @@ namespace Identity_Auth_MicroService.Services.Services
                 return Error.InvalidCredentials("User.InvalidCredentials");
 
             var Token = await CreateTokenAsync(User);
-            return new UserDTO(User.Email!, User.DisplayName, Token);
+            return new UserDTO(User.DisplayName, User.Email!, Token);
 
         }
 
@@ -58,7 +58,7 @@ namespace Identity_Auth_MicroService.Services.Services
                 var Token = await CreateTokenAsync(User);
                 User.Token = Token;
                 await _userManager.UpdateAsync(User);
-                return new UserDTO(User.Email!, User.DisplayName, Token);
+                return new UserDTO(User.DisplayName, User.Email!, Token);
             }
 
             return IdentityResult.Errors.Select(e => Error.Validation(e.Code, e.Description)).ToList();
